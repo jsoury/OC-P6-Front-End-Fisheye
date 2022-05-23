@@ -1,0 +1,93 @@
+.carrousel-photographer {
+  position: relative;
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+  background-color: hsla(0, 0%, 96%, 0.9);
+}
+
+.fa-xmark {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  color: #901c1c;
+  font-size: 50px;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.carrousel-close .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.carrousel {
+  position: relative;
+  padding: 0;
+  margin: 0;
+}
+
+.carrousel-item {
+  width: 100%;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  list-style-type: none;
+}
+.img {
+  font-size: 60px;
+  color: #901c1c;
+  display: flex;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+}
+
+.prev-image {
+  left: 20px;
+}
+
+.fa-arrow-circle-left,
+.fa-arrow-circle-right {
+  font-size: 30px;
+}
+
+.next-image {
+  right: 20px;
+}
+
+.carrousel-photographer p {
+  color: #901c1c;
+  font-size: 24px;
+  font-weight: 700;
+  margin: 10px 0 0 0;
+}
+.carrousel-content {
+  height: 90vh;
+  width: 80vw;
+  margin: auto;
+}
+
+.carrousel img {
+  height: 100%;
+  width: 100%;
+}
+
+.carrousel video {
+  height: 100%;
+  width: 100%;
+}

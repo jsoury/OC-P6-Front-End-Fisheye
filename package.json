@@ -1,0 +1,25 @@
+{
+  "devDependencies": {
+    "eslint": "^8.16.0"
+  },
+  "type":"module",
+  "name": "oc-p6-front-end-fisheye",
+  "description": "Rien à installer ici, il suffit d'ouvrir le fichier `index.html`.",
+  "version": "1.0.0",
+  "main": "index.html",
+
+  "scripts": {
+    "lint": "eslint ./",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jsoury/OC-P6-Front-End-Fisheye.git"
+  },
+  "author": "jonathan soury",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jsoury/OC-P6-Front-End-Fisheye/issues"
+  },
+  "homepage": "https://github.com/jsoury/OC-P6-Front-End-Fisheye#readme"
+}
