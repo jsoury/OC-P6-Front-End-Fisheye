@@ -3,7 +3,6 @@ function achievementsFactory(data) {
   const { date, id, name, title, image, video, likes, liked } = data;
   function getMedia() {
     if (image && image != "undefined") {
-      console.log(image);
       const img = document.createElement("img");
       img.setAttribute("src", `assets/images/${name}/${image}`);
       img.setAttribute("alt", title);

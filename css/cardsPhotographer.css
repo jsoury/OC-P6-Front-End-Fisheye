@@ -1,0 +1,45 @@
+.photographer_wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 70px;
+  margin-top: 100px;
+}
+
+.photographer_wrapper article {
+  justify-self: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.photographer_wrapper article h2 {
+  color: #d3573c;
+  font-size: 36px;
+  margin: 40px 0 0 0;
+}
+
+.photographer_wrapper article img {
+  height: 200px;
+  width: 200px;
+  border-radius: 100%;
+  transition: all 500ms;
+}
+.photographer_wrapper article p {
+  line-height: 1.5;
+  text-align: center;
+  margin: 0;
+}
+.photographer_wrapper article span {
+  color: #901c1c;
+  font-weight: 700;
+}
+.photographer_wrapper article a {
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.photographer_wrapper article a:hover > img {
+  transform: scale(1.2);
+}

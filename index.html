@@ -11,7 +11,6 @@
     <title>Fisheye</title>
   </head>
   <body>
-    <div class="lds-dual-ring"></div>
     <header>
       <a href="/">
         <img
@@ -22,9 +21,24 @@
       </a>
       <h1>Nos photographes</h1>
     </header>
+    <div class="lds-dual-ring"></div>
     <main id="main">
       <div class="photographer_section"></div>
+      <div class="photographer_wrapper"></div>
     </main>
+
+    <!--Models-->
+    <script src="/scripts/models/photographer.js"></script>
+
+    <!--Templates-->
+    <script src="/scripts/templates/photographer.js"></script>
+
+    <!--Api-->
+    <script src="/scripts/api/api.js"></script>
+
+    <!--Entry point-->
+    <script src="app.js"></script>
+
     <script src="scripts/utils/fetchData.js"></script>
     <script src="scripts/factories/Photographer.js"></script>
     <script src="scripts/pages/index.js"></script>

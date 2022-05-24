@@ -1,10 +1,8 @@
 const orderBy = (orderBy) => {
-  console.log(orderBy);
   const achievements = document.querySelectorAll(
     ".achievements_section article"
   );
   let achievementsArray = Array.from(achievements);
-  console.log(achievementsArray);
   var mapped = achievementsArray.map(function (e, i) {
     let value;
     if (orderBy === "likes") value = parseInt(e.dataset[orderBy]);
@@ -25,6 +23,5 @@ const orderBy = (orderBy) => {
   var result = mapped.map(function (e) {
     return achievementsArray[e.index];
   });
-  console.log(result);
   reMakeAchievementsSort(result);
 };

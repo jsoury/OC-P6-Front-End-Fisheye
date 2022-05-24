@@ -6,30 +6,30 @@
   background-color: white;
   box-shadow: 0 0 4px 0 rgb(0 0 0 / 10%);
   height: 300px;
-  margin: 0 100px;
+  margin: 50px 100px 0 100px;
 }
-.photograph-header article {
+.photograph-header .wrapper {
   display: flex;
   align-items: center;
   justify-content: space-between;
   height: 100%;
   margin: 0 40px;
 }
-.photograph-header article img {
+.photograph-header img {
   height: 200px;
   width: 200px;
   border-radius: 100%;
   transition: all 500ms;
 }
-.photograph-header article p {
+.photograph-header p {
   line-height: 1.8;
 }
-.photograph-header article p > h1 {
+.photograph-header .text > h1 {
   color: #db8876;
   font-size: 64px;
   margin: 0;
 }
-.photograph-header article span {
+.photograph-header .text span {
   color: #901c1c;
   font-size: 24px;
   margin: 0;
