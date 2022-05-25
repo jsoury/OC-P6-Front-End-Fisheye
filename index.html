@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
   <head>
     <link href="css/style.css" rel="stylesheet" type="text/css" />
     <meta charset="utf-8" />
@@ -12,8 +12,9 @@
   </head>
   <body>
     <div class="lds-dual-ring"></div>
-    <header>
-      <a href="/">
+
+    <header class="header" role="banner">
+      <a href="/" aria-label="Fisheye">
         <img
           src="assets/images/logo.png"
           class="logo"
@@ -22,11 +23,18 @@
       </a>
       <h1>Nos photographes</h1>
     </header>
+
     <main id="main">
       <div class="photographer_section"></div>
     </main>
-    <script src="scripts/utils/fetchData.js"></script>
+
+    <!-- Factories -->
     <script src="scripts/factories/Photographer.js"></script>
+
+    <!-- Api -->
+    <script src="scripts/api/api.js"></script>
+
+    <!--Page-->
     <script src="scripts/pages/index.js"></script>
   </body>
 </html>

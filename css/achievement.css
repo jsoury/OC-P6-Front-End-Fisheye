@@ -1,8 +1,9 @@
 .achievements_section {
   display: grid;
+  justify-items: center;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 70px;
-  margin: 100px;
+  margin: 120px;
 }
 .achievements_section article {
   max-width: 350px;
@@ -13,6 +14,9 @@
 }
 .achievements_section article:hover {
   box-shadow: 10px 10px 20px 0 rgb(0 0 0 / 10%);
+}
+.achievements_section a {
+  cursor: pointer;
 }
 .achievements_section img {
   height: 300px;

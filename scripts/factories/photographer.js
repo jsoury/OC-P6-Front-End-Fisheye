@@ -1,63 +1,75 @@
 function photographerFactory(data) {
-  const { id, portrait, name, city, tagline, price, totalLikes } = data;
+  const { id, portrait, name, city, country, tagline, price, totalLikes } =
+    data;
 
   const picture = `assets/photographers/${portrait}`;
 
-  function getUserCardDOM() {
-    const article = document.createElement("article");
-    const link = document.createElement("a");
-    const img = document.createElement("img");
-    const text = document.createElement("p");
-    const h2 = document.createElement("h2");
-
-    article.setAttribute("id", id);
-    img.setAttribute("src", picture);
-    img.setAttribute("alt", name);
-    link.setAttribute(
-      "href",
-      `${window.location.href}photographer.html?id=${id}`
-    );
-
-    h2.textContent = name;
-    text.innerHTML = `<span>${city}</span><br/><strong>${tagline}</strong><br/>${price}€/jour`;
-
-    article.appendChild(link);
-    link.appendChild(img);
-    link.appendChild(h2);
-    article.appendChild(text);
-    return article;
+  function createPhotographerCard() {
+    const $article = document.createElement("article");
+    $article.setAttribute("id", id);
+    const photographerCard = `
+      <a href=${window.location.href}photographer.html?id=${id}>
+          <img 
+              alt="${name}" 
+              src="/assets/photographers/${portrait}"
+          />
+          <h2>${name}</h2>
+      </a>
+      <span>${city}, ${country}</span><br/>
+      <strong>${tagline}</strong><br/>
+      ${price}€/jour
+  `;
+    $article.innerHTML = photographerCard;
+    return $article;
   }
 
-  function getHeaderPhotographer() {
-    const article = document.createElement("article");
-    const h1 = document.createElement("h1");
-    const text = document.createElement("p");
-    const button = document.createElement("button");
-    const img = document.createElement("img");
+  function createPhotographerHeader() {
+    const $wrapper = document.createElement("article");
+    $wrapper.classList.add("wrapper");
 
-    article.setAttribute("id", id);
-    img.setAttribute("src", picture);
-    img.setAttribute("alt", name);
-    button.className = "contact_button";
-    button.setAttribute("onclick", "displayModal()");
+    const photographerHeader = `
+      <div class="text">
+        <h1>${name}</h1>
+        <p>
+          <span>
+            ${city}, ${country}
+          </span>
+          <br/>
+          ${tagline}
+        </p>
+      </div>
+        <button class="contact_button" onclick="displayModal()">
+          Contactez-moi
+        </button>
+        <img src="/assets/photographers/${portrait}" 
+          alt="${name}"
+        />
+      `;
 
-    h1.textContent = name;
-    text.innerHTML = `<span>${city}</span><br/>${tagline}`;
-    button.textContent = "Contactez-moi";
-
-    article.appendChild(text);
-    text.prepend(h1);
-    article.appendChild(button);
-    article.appendChild(img);
-
-    return article;
+    $wrapper.innerHTML = photographerHeader;
+    return $wrapper;
   }
-  function getCostCardDOM() {
-    const div = document.createElement("div");
-    const body = document.querySelector("body");
-    div.className = "cost-card";
-    div.innerHTML = `<p><span><span class="total-likes">${totalLikes.toString()}</span> <i class="fa-solid fa-heart" aria-label="count likes"></i> </span>${price}€ / jour</p>`;
-    body.appendChild(div);
+
+  function createStickyTotalLikes() {
+    const $wrapper = document.createElement("aside");
+    $wrapper.classList.add("cost-card");
+    const stickyTotalLikes = `
+      <p>
+        <span>
+          <span class="total-likes">
+            ${totalLikes.toString()}
+          </span> 
+          <i class="fa-solid fa-heart" aria-label="count likes"></i> 
+        </span>
+        ${price}€ / jour
+      </p>
+    `;
+    $wrapper.innerHTML = stickyTotalLikes;
+    return $wrapper;
   }
-  return { getHeaderPhotographer, getUserCardDOM, getCostCardDOM };
+  return {
+    createPhotographerHeader,
+    createPhotographerCard,
+    createStickyTotalLikes,
+  };
 }

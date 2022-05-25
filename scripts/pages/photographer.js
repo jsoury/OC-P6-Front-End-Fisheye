@@ -1,170 +1,145 @@
-let DATAPHOTOGRAPHER = [];
-let DATAACHIEVEMENTS = [];
-let TOTALLIKES = 0;
-
-function getPhotographer(data) {
-  let totalLikes = 0;
-  let objectPhotographer;
-  for (let photographer of data.photographers) {
-    if (photographer.id === getParam()) objectPhotographer = photographer;
-  }
-  for (let media of data.media) {
-    if (media.photographerId === getParam()) {
-      totalLikes += media.likes;
-    }
-  }
-  totalLikes = { totalLikes: totalLikes };
-  objectPhotographer = { ...totalLikes, ...objectPhotographer };
-  return objectPhotographer;
-}
-
-function getAchievements(data) {
-  const photographer = getPhotographer(data);
-  const achievements = [];
-  for (let media of data.media) {
-    if (media.photographerId === getParam()) {
-      const name = { name: photographer.name.split(" ")[0] };
-      media = { ...name, ...media };
-      achievements.push(media);
-    }
-  }
-  console.log(achievements);
-  return achievements;
-}
-
-function makePhotographerHeader(photographerHeader, photographerModel) {
-  const headerPhotographer = photographerModel.getHeaderPhotographer();
-  photographerHeader.appendChild(headerPhotographer);
-}
-
-function makeAchievement(index, achievementModel, achievementsSection) {
-  const achievementCardDOM = achievementModel.getAchievementCardDOM(index);
-  achievementsSection.appendChild(achievementCardDOM);
-}
-
-function makeItemcarrousel(numItem, media) {
-  const item = document.createElement("li");
-  item.className = `carrousel-item item-${numItem}`;
-  item.setAttribute("aria-hidden", numItem === 0 ? false : true);
-  item.style.display = "none";
-  item.innerHTML = `
-    <div role="button" class="controls controls-left">
-      <span class="img prev-image">
-        <i aria-hidden="true" class="fa-solid fa-chevron-left"></i>
-      </span>
-      <p class="sr-only">Previous</p>
-    </div>
-    <div role="button" class="controls controls-right">
-      <span class="img next-image">
-        <i aria-hidden="true" class="fa-solid fa-chevron-right"></i>
-      </span>
-      <p class="sr-only">Next</p>
-    </div>`;
-  item.appendChild(media);
-  return item;
-}
-
-function makeCarrousel(index, achievementModel, carrouselList) {
-  const mediacarrousel = makeItemcarrousel(
-    index,
-    achievementModel.getMediacarrousel()
-  );
-  carrouselList.appendChild(mediacarrousel);
-}
-
-function displayData(dataPhotographer, dataAchievements) {
-  const photographerHeader = document.querySelector(".photograph-header");
-  const achievementsSection = document.querySelector(".achievements_section");
-  const carrouselList = document.querySelector("#carrousel-list");
-
-  const photographerModel = photographerFactory(dataPhotographer);
-  makePhotographerHeader(photographerHeader, photographerModel);
-
-  dataAchievements.forEach((achievement, index) => {
-    const achievementModel = achievementsFactory(achievement);
-    makeAchievement(index, achievementModel, achievementsSection);
-    makeCarrousel(index, achievementModel, carrouselList);
-  });
-  photographerModel.getCostCardDOM();
-}
-
-function setNameContact(dataPhotographer) {
-  const modalTitle = document.querySelector(".modal header h2");
-  modalTitle.innerHTML = `Contactez-moi<br/> ${dataPhotographer.name}`;
-}
-function toggleLike(id) {
-  const data = {
-    photographer: DATAPHOTOGRAPHER,
-    achievements: DATAACHIEVEMENTS,
-  };
-  let article = document.getElementById(id);
-  const index = article.dataset.index;
-  let heart = article.querySelector(".fa-heart");
-  heart.classList.toggle("fa-solid");
-
-  if (heart.classList.contains("fa-solid")) {
-    const achievement = addLikeAchievement(data, id);
-    reMakeAchievement(id, achievement, index);
-    article = document.getElementById(id);
-    heart = article.querySelector(".fa-heart");
-    heart.classList.toggle("fa-solid");
-    article.dataset.liked = true;
-    data.photographer = addLikePhotographer(data, (add = true));
-    reMakeCostCardDom(data.photographer);
-  } else {
-    article.dataset.liked = false;
-    const achievementData = DATAACHIEVEMENTS.find(
-      (element) => element.id === id
-    );
-    reMakeAchievement(id, achievementData, index);
-    data.photographer = addLikePhotographer(data);
-    reMakeCostCardDom(data.photographer);
-  }
-}
-
-function addLikeAchievement(data, id) {
-  const { achievements } = data;
-  let newAchievement;
-  achievements.forEach((achievement) => {
-    if (achievement.id === id) {
-      newAchievement = { ...achievement };
-      newAchievement.likes = newAchievement.likes + 1;
-    }
-  });
-  return newAchievement;
-}
-function addLikePhotographer(data, add) {
-  let { photographer } = data;
-  add ? (TOTALLIKES += 1) : (TOTALLIKES -= 1);
-  let totalLikes = { totalLikes: TOTALLIKES };
-  photographer = { ...photographer, ...totalLikes };
+async function getDataPhotographer() {
+  const data = api("/data/photographers.json");
+  const photographer = await data.getPhotograper(getParamId());
   return photographer;
 }
 
-function reMakeAchievement(id, achievement, index) {
-  const achievementDom = document.getElementById(id);
-  const newAchievementDom =
-    achievementsFactory(achievement).getAchievementCardDOM(index);
-  achievementDom.parentNode.replaceChild(newAchievementDom, achievementDom);
+async function getMedia() {
+  const data = api("/data/photographers.json");
+  const media = await data.getMedia(getParamId());
+  return media;
 }
 
-function reMakeCostCardDom(dataPhotographer) {
-  const costCard = document.querySelector(".cost-card");
-  document.body.removeChild(costCard);
-  photographerFactory(dataPhotographer).getCostCardDOM();
+function getTotalLike(media) {
+  let totalLikes = 0;
+  media.forEach((element) => {
+    totalLikes += element.likes;
+  });
+  return { totalLikes: totalLikes };
 }
 
-function reMakeAchievementsSort(achievements) {
-  let newData = {};
+function mergePhotograperData(photograper, totalLike) {
+  return { ...totalLike, ...photograper };
+}
+
+function makePortfolioHeader(photograper) {
+  const $wrapper = document.querySelector(".photograph-header");
+  const factoryPhotographer = photographerFactory(photograper);
+  const headerPhotographer = factoryPhotographer.createPhotographerHeader();
+  $wrapper.appendChild(headerPhotographer);
+}
+
+function mergeMedia(photograper, media) {
+  const name = { name: photograper.name.split(" ")[0] };
+  let mediaMerge = [];
+  media.forEach((element) => {
+    mediaMerge.push({ ...name, ...element });
+  });
+  return mediaMerge;
+}
+
+function makePortfolioCards(media) {
+  const $wrapper = document.querySelector(".achievements_section");
+  media.forEach((element, index) => {
+    const factoryPortfolio = portfolioFactory(element);
+    const portfolioCard = factoryPortfolio.createPortfolioCard(index);
+    $wrapper.appendChild(portfolioCard);
+  });
+}
+
+function reMakePortfolioCard(media, idCard) {
+  const $wrapper = document.getElementById(idCard);
+  const index = $wrapper.dataset.index;
+  const factoryPortfolio = portfolioFactory(media);
+  const portfolioCard = factoryPortfolio.createPortfolioCard(index);
+  $wrapper.parentNode.replaceChild(portfolioCard, $wrapper);
+}
+
+function makeCarrousel(media) {
+  const $wrapper = document.querySelector("#carrousel-list");
+  media.forEach((element, index) => {
+    const factoryCarrousel = carrouselFactory(element);
+    const $item = factoryCarrousel.createItemCarrousel(index);
+    $wrapper.appendChild($item);
+  });
+}
+
+function initCarrouselManager() {
+  let script = document.createElement("script");
+  script.src = "scripts/utils/carrousel.js";
+  document.head.appendChild(script);
+}
+
+function setNameContact(photograper) {
+  const modalTitle = document.querySelector(".modal header h2");
+  modalTitle.innerHTML = `Contactez-moi<br/> ${photograper.name}`;
+}
+
+function makeSticky(photograper) {
+  const $wrapper = document.body;
+  const factoryPhotographer = photographerFactory(photograper);
+  const sticky = factoryPhotographer.createStickyTotalLikes();
+  $wrapper.appendChild(sticky);
+}
+
+async function makeStickyAfterLike() {
+  let photograper = await getDataPhotographer();
+  const $card = document.querySelectorAll(".achievements_section article");
+  const $sticky = document.querySelector(".cost-card");
+  let totalLikes = 0;
+
+  $card.forEach((element) => {
+    totalLikes += parseInt(element.dataset.likes);
+  });
+  photograper = { ...photograper, ...{ totalLikes: totalLikes } };
+
+  $sticky.parentNode.removeChild($sticky);
+  makeSticky(photograper);
+}
+
+function toggleLike(idCard) {
+  let article = document.getElementById(idCard);
+  let heart = article.querySelector(".fa-heart");
+  heart.classList.toggle("fa-solid");
+
+  if (heart.classList.contains("fa-regular")) {
+    likeCard(idCard, (add = true));
+  } else {
+    likeCard(idCard, (add = false));
+  }
+}
+
+function likeCard(idCard, add) {
+  const $card = document.getElementById(idCard);
+  const object = $card.dataset;
+  let data = {};
+  for (const key in object) {
+    if (Object.hasOwnProperty.call(object, key)) {
+      data = { ...data, ...{ [key]: object[key] } };
+    }
+  }
+  if (add) {
+    data.likes = parseInt(data.likes) + 1;
+    data = { ...data, ...{ liked: true } };
+  } else {
+    data.likes = parseInt(data.likes) - 1;
+    data = { ...data, ...{ liked: false } };
+  }
+  reMakePortfolioCard(data, idCard);
+  makeStickyAfterLike();
+}
+
+function makePortfolioCardsBySort(data) {
+  let newData = [];
   //remove child
   const achievementsSection = document.querySelector(".achievements_section");
   achievementsSection.textContent = "";
   const carrouselList = document.querySelector("#carrousel-list");
   carrouselList.textContent = "";
 
-  achievements.forEach((achievement, index) => {
+  data.forEach((achievement, index) => {
     achievement.dataset.index = index;
-    newData = {
+    newData.push({
       id: achievement.getAttribute("id"),
       index: achievement.dataset.index,
       date: achievement.dataset.date,
@@ -174,37 +149,33 @@ function reMakeAchievementsSort(achievements) {
       video: achievement.dataset.video,
       likes: achievement.dataset.likes,
       liked: achievement.dataset.liked,
-    };
-    const achievementModel = achievementsFactory(newData);
-    makeAchievement(index, achievementModel, achievementsSection);
-    makeCarrousel(index, achievementModel, carrouselList);
+    });
   });
-  const prevBtn = document.querySelectorAll(".prev-image");
-  const nextBtn = document.querySelectorAll(".next-image");
-  createEventListenerModal(prevBtn, nextBtn);
+  makePortfolioCards(newData);
+  makeCarrousel(newData);
+  createEventListenerModal();
 }
 
 async function init() {
-  const data = await fetchDataPhotographers();
-  DATAPHOTOGRAPHER = getPhotographer(data);
-  DATAACHIEVEMENTS = getAchievements(data);
-  TOTALLIKES = DATAPHOTOGRAPHER.totalLikes;
-  displayData(DATAPHOTOGRAPHER, DATAACHIEVEMENTS);
-  setNameContact(DATAPHOTOGRAPHER);
+  const dataPhotographer = await getDataPhotographer();
+  const dataMedia = await getMedia();
+  const totalLikes = getTotalLike(dataMedia);
+  const mergeDataPhotograper = mergePhotograperData(
+    dataPhotographer,
+    totalLikes
+  );
+  const mergeDataMedia = mergeMedia(dataPhotographer, dataMedia);
+
+  makePortfolioHeader(mergeDataPhotograper);
+  makePortfolioCards(mergeDataMedia);
+  makeCarrousel(mergeDataMedia);
+  initCarrouselManager();
+  setNameContact(dataPhotographer);
+  makeSticky(mergeDataPhotograper);
 }
 
 document.addEventListener("readystatechange", (event) => {
   if (event.target.readyState === "interactive") {
-    document.querySelector(".lds-dual-ring").style.display = "block";
-    document.body.style.display = "none";
     init();
-  } else if (event.target.readyState === "complete") {
-    let script = document.createElement("script");
-    script.src = "scripts/utils/carrousel.js";
-
-    document.body.appendChild(script);
-    this.head.appendChild(script);
-    document.body.style.display = "block";
-    document.querySelector(".lds-dual-ring").style.display = "none";
   }
 });

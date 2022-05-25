@@ -70,14 +70,16 @@ const setNodeAttributes = (lastItem, currentItem) => {
   lastItem.style.display = "none";
   currentItem.style.display = "block";
   lastItem.setAttribute("aria-hidden", "true");
-  currentItem.setAttribute("aria-hidden", "true");
+  currentItem.setAttribute("aria-hidden", "false");
 };
 
-const createEventListenerModal = (prevBtn, nextBtn) => {
-  prevBtn.forEach((element) => {
+const createEventListenerModal = () => {
+  const $prevBtn = document.querySelectorAll(".prev-image");
+  const $nextBtn = document.querySelectorAll(".next-image");
+  $prevBtn.forEach((element) => {
     element.addEventListener("click", goToPreviousSlide);
   }),
-    nextBtn.forEach((element) => {
+    $nextBtn.forEach((element) => {
       element.addEventListener("click", goToNextSlide);
     }),
     document.addEventListener("keydown", (event) => {
@@ -89,10 +91,21 @@ const createEventListenerModal = (prevBtn, nextBtn) => {
     });
 };
 
-document.addEventListener(
-  "DOMContentLoaded",
-  createEventListenerModal($prevBtn, $nextBtn)
-);
+$prevBtn.forEach((element) => {
+  element.addEventListener("click", goToPreviousSlide);
+}),
+  $nextBtn.forEach((element) => {
+    element.addEventListener("click", goToNextSlide);
+  }),
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "ArrowRight") {
+      goToNextSlide();
+    } else if (event.key === "ArrowLeft") {
+      goToPreviousSlide();
+    }
+  });
+
+//document.addEventListener("DOMContentLoaded", createEventListenerModal);
 
 // $carrouselPauseBtn.on("click", function () {
 //   clearInterval(carrouselInterval);
