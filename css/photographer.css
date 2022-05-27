@@ -95,6 +95,10 @@
   margin: 0 0 15px 0;
 }
 
+.no-scroll {
+  overflow: hidden;
+}
+
 form {
   position: relative;
   display: flex;

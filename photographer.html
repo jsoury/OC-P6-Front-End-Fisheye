@@ -28,13 +28,18 @@
       </a>
     </header>
 
-    <main id="main">
+    <main id="main-photographer" aria-hidden="false">
       <div class="photograph-header"></div>
       <div class="trie">
         trier par
         <div class="dropdown">
-          <button class="dropbtn" onclick="orderBy('likes')">
-            Popularité <i class="fa fa-caret-down"></i>
+          <button class="dropbtn" onclick="orderBy('likes')" tabindex="2">
+            Popularité
+            <i
+              class="fa fa-caret-down"
+              aria-hidden="false"
+              title="open dropdown"
+            ></i>
           </button>
           <div class="dropdown-content">
             <a onclick="orderBy('date')">Date</a>
@@ -46,7 +51,7 @@
     </main>
 
     <!--Modal form contact-->
-    <div id="contact_modal">
+    <div id="contact_modal" aria-hidden="true" role="dialog">
       <div class="modal">
         <header>
           <h2></h2>
@@ -55,6 +60,8 @@
             onclick="closeModal()"
             aria-label="close form contact"
             alt="close form contact"
+            class="close-modal"
+            role="button"
           />
         </header>
 
@@ -66,15 +73,28 @@
               type="text"
               id="first"
               name="first"
+              aria-required="true"
             /><!--minlength="2"-->
           </div>
           <div class="formData">
             <label for="last">Nom</label>
-            <input class="text-control" type="text" id="last" name="last" />
+            <input
+              class="text-control"
+              type="text"
+              id="last"
+              name="last"
+              aria-required="true"
+            />
           </div>
           <div class="formData" data-error="Adresse email invalide">
             <label for="email">E-mail</label>
-            <input class="text-control" type="email" id="email" name="email" />
+            <input
+              class="text-control"
+              type="email"
+              id="email"
+              name="email"
+              aria-required="true"
+            />
           </div>
           <div class="formData" data-error="Décrivez moi votre projet">
             <label for="request">Votre message</label>
@@ -82,6 +102,7 @@
               class="text-control"
               id="request"
               name="request"
+              aria-required="true"
             ></textarea>
           </div>
           <div class="thanks">Merci pour votre Demande</div>
@@ -95,24 +116,24 @@
       </div>
     </div>
 
-    <!--carrousel-->
-    <div class="carrousel-photographer">
+    <!--carousel-->
+    <div class="carousel-photographer" aria-hidden="true">
       <i
         class="fa-solid fa-xmark"
-        onclick="closeCarrousel()"
-        aria-label="close carrousel"
+        onclick="closecarousel()"
+        aria-label="close carousel"
       ></i>
       <ul
-        class="carrousel"
+        class="carousel"
         aria-label="Our selection of Recipes"
-        id="carrousel-list"
+        id="carousel-list"
       ></ul>
     </div>
 
     <!--Factories-->
     <script src="scripts/factories/photographer.js"></script>
     <script src="scripts/factories/portfolio.js"></script>
-    <script src="/scripts/factories/carrousel.js"></script>
+    <script src="/scripts/factories/carousel.js"></script>
 
     <!--Utils-->
     <script src="scripts/utils/getId.js"></script>

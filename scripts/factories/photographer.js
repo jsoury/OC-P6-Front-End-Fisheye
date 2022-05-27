@@ -10,7 +10,7 @@ function photographerFactory(data) {
     const photographerCard = `
       <a href=${window.location.href}photographer.html?id=${id}>
           <img 
-              alt="${name}" 
+              alt="" 
               src="/assets/photographers/${portrait}"
           />
           <h2>${name}</h2>
@@ -38,11 +38,11 @@ function photographerFactory(data) {
           ${tagline}
         </p>
       </div>
-        <button class="contact_button" onclick="displayModal()">
+        <button class= "contact_button" onclick= "displayModal()" id= "btn_open_modal">
           Contactez-moi
         </button>
         <img src="/assets/photographers/${portrait}" 
-          alt="${name}"
+          alt=""
         />
       `;
 

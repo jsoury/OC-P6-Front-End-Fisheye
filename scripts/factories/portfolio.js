@@ -16,7 +16,7 @@ function portfolioFactory(data) {
     $article.dataset.liked = liked;
 
     const $link = document.createElement("a");
-    $link.setAttribute("onclick", `displayCarrousel(${index})`);
+    $link.setAttribute("onclick", `displaycarousel(${index})`);
     $link.appendChild(createMedia(data));
 
     const $achievementText = document.createElement("p");
@@ -31,9 +31,12 @@ function portfolioFactory(data) {
               ? "fa-solid fa-heart"
               : "fa-regular fa-heart"
           }" 
-          aria-label="likes" 
+          aria-label="likes"
+          aria-hidden ="true"
+          title="add like" 
           onclick ="toggleLike(${id})"
         ></i>
+        <span class="sr-only">add like for ${title}</span>
       </span>      
     `;
     $article.appendChild($link);

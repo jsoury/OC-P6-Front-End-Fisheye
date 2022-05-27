@@ -55,23 +55,26 @@ function reMakePortfolioCard(media, idCard) {
   $wrapper.parentNode.replaceChild(portfolioCard, $wrapper);
 }
 
-function makeCarrousel(media) {
-  const $wrapper = document.querySelector("#carrousel-list");
+function makecarousel(media) {
+  const $wrapper = document.querySelector("#carousel-list");
   media.forEach((element, index) => {
-    const factoryCarrousel = carrouselFactory(element);
-    const $item = factoryCarrousel.createItemCarrousel(index);
+    const factorycarousel = carouselFactory(element);
+    const $item = factorycarousel.createItemcarousel(index);
     $wrapper.appendChild($item);
   });
 }
 
-function initCarrouselManager() {
+function initcarouselManager() {
   let script = document.createElement("script");
-  script.src = "scripts/utils/carrousel.js";
+  script.src = "scripts/utils/carousel.js";
   document.head.appendChild(script);
 }
 
 function setNameContact(photograper) {
+  const modal = document.getElementById("contact_modal");
+  modal.setAttribute("aria-describedby", `contactez ${photograper.name}`);
   const modalTitle = document.querySelector(".modal header h2");
+  modalTitle.setAttribute("id", `contactez ${photograper.name}`);
   modalTitle.innerHTML = `Contactez-moi<br/> ${photograper.name}`;
 }
 
@@ -134,8 +137,8 @@ function makePortfolioCardsBySort(data) {
   //remove child
   const achievementsSection = document.querySelector(".achievements_section");
   achievementsSection.textContent = "";
-  const carrouselList = document.querySelector("#carrousel-list");
-  carrouselList.textContent = "";
+  const carouselList = document.querySelector("#carousel-list");
+  carouselList.textContent = "";
 
   data.forEach((achievement, index) => {
     achievement.dataset.index = index;
@@ -152,7 +155,7 @@ function makePortfolioCardsBySort(data) {
     });
   });
   makePortfolioCards(newData);
-  makeCarrousel(newData);
+  makecarousel(newData);
   createEventListenerModal();
 }
 
@@ -168,8 +171,8 @@ async function init() {
 
   makePortfolioHeader(mergeDataPhotograper);
   makePortfolioCards(mergeDataMedia);
-  makeCarrousel(mergeDataMedia);
-  initCarrouselManager();
+  makecarousel(mergeDataMedia);
+  initcarouselManager();
   setNameContact(dataPhotographer);
   makeSticky(mergeDataPhotograper);
 }
