@@ -104,7 +104,6 @@ const focusNextListOption = (direction) => {
     const currentElementId = parseInt(document.activeElement.id.split("-")[1]);
     nextId = direction === "down" ? currentElementId + 1 : currentElementId - 1;
     if ($options.length != "" && nextId >= 0 && nextId <= $options.length - 1) {
-      console.log($options.length, nextId);
       $options[nextId].focus();
       addStyleOptionSelected($options[nextId]);
     } else {

@@ -190,7 +190,6 @@ function addListenerEventKey() {
     card.addEventListener(
       "keydown",
       (event) => {
-        console.log("keydown");
         if (event.key === "Enter" && carouselIsClose) event.target.click();
       },
       { once: true }

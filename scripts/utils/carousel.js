@@ -1,14 +1,3 @@
-// const makeCloseButton = () => {
-//   const $wrapper = document.querySelector(".carousel-photographer");
-//   const $btn = `<i
-// class="fa-solid fa-xmark"
-// onclick="closecarousel()"
-// aria-label="close carousel"
-// ></i>`;
-//   $wrapper.innerHTML = $btn;
-// };
-// makeCloseButton();
-
 const $prevBtn = document.querySelectorAll(".prev-image");
 const $nextBtn = document.querySelectorAll(".next-image");
 const $carouselItems = document.querySelectorAll(".carousel-item");
@@ -27,7 +16,6 @@ function displaycarousel(index) {
   $sectionWrapper.setAttribute("aria-hidden", true);
   const $carousel = document.querySelector(".carousel-photographer");
   currentItemPosition = index;
-  console.log($carouselItems[currentItemPosition]);
   $carouselItems[currentItemPosition].focus();
   let lastItem = null;
   if (currentItemPosition === 0) {
@@ -41,7 +29,6 @@ function displaycarousel(index) {
   $carousel.setAttribute("aria-hidden", false);
   clearInterval(carouselInterval);
   carouselInterval = setInterval(() => goToNextSlide(), 5000);
-  console.log(carouselInterval);
 }
 
 const closecarousel = () => {
@@ -57,7 +44,6 @@ const closecarousel = () => {
     item.style.display = "none";
   });
   clearInterval(carouselInterval);
-  console.log(carouselInterval);
 };
 const goToNextSlide = () => {
   if (currentItemPosition + 1 >= $carouselItems.length) {
@@ -141,7 +127,6 @@ const playcarousel = (btnPlay) => {
     btnPlay.innerHTML =
       '<i class="fa-solid fa-play" aria-hidden="true" title="Stop carousel"></i>';
     clearInterval(carouselInterval);
-    console.log(carouselInterval);
   } else {
     btnPlay.innerHTML =
       '<i class="fa-solid fa-pause" aria-hidden="true" title="Play carousel"></i>';

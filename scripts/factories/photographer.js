@@ -2,8 +2,6 @@ function photographerFactory(data) {
   const { id, portrait, name, city, country, tagline, price, totalLikes } =
     data;
 
-  const picture = `assets/photographers/${portrait}`;
-
   function createPhotographerCard() {
     const $article = document.createElement("article");
     $article.setAttribute("id", id);

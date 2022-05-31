@@ -147,7 +147,7 @@ document.addEventListener("DOMContentLoaded", () => {
       $modal.attributes["aria-hidden"].value === "false" &&
       event.key === "Enter"
     ) {
-      validateSubmit();
+      validateSubmit(event);
     }
     if (
       event.key === "Escape" &&
