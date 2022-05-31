@@ -182,7 +182,7 @@ async function init() {
 function addListenerEventKey() {
   const $article = document.querySelectorAll(".achievements_section article a");
   const $heartLike = document.querySelectorAll(
-    ".achievements_section article i"
+    ".achievements_section article .fa-heart"
   );
   const $carousel = document.querySelector(".carousel-photographer");
   const carouselIsClose = $carousel.getAttribute("aria-hidden");

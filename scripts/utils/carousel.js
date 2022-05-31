@@ -9,15 +9,14 @@ const $sectionWrapper = document.querySelector(".achievements_section");
 let currentItemPosition = 0;
 let carouselInterval;
 
-// Funcs
-
 function displaycarousel(index) {
   toggleFocusCard();
   $sectionWrapper.setAttribute("aria-hidden", true);
+  $btnPlay.focus();
   const $carousel = document.querySelector(".carousel-photographer");
   currentItemPosition = index;
-  $carouselItems[currentItemPosition].focus();
   let lastItem = null;
+
   if (currentItemPosition === 0) {
     lastItem = `.item-${$carouselItems.length - 1}`;
   } else {
@@ -27,6 +26,7 @@ function displaycarousel(index) {
   setNodeAttributes(lastItem, currentItem);
   $carousel.style.display = "block";
   $carousel.setAttribute("aria-hidden", false);
+
   clearInterval(carouselInterval);
   carouselInterval = setInterval(() => goToNextSlide(), 5000);
 }
@@ -45,6 +45,7 @@ const closecarousel = () => {
   });
   clearInterval(carouselInterval);
 };
+
 const goToNextSlide = () => {
   if (currentItemPosition + 1 >= $carouselItems.length) {
     const lastItem = `.item-${currentItemPosition}`;
@@ -57,7 +58,6 @@ const goToNextSlide = () => {
     currentItemPosition += 1;
     const lastItem = `.item-${currentItemPosition - 1}`;
     const currentItem = `.item-${currentItemPosition}`;
-
     setNodeAttributes(lastItem, currentItem);
   }
 };
@@ -74,7 +74,6 @@ const goToPreviousSlide = () => {
 
     currentItemPosition = $carouselItems.length - 1;
     const currentItem = `.item-${currentItemPosition}`;
-
     setNodeAttributes(lastItem, currentItem);
   }
 };
@@ -109,7 +108,7 @@ const createEventListenerModal = () => {
 const toggleFocusCard = (add) => {
   const $article = document.querySelectorAll(".achievements_section article a");
   const $heartLike = document.querySelectorAll(
-    ".achievements_section article i"
+    ".achievements_section article .fa-heart"
   );
   $article.forEach((card) => {
     card.setAttribute("tabindex", add ? "0" : "-1");
@@ -117,7 +116,7 @@ const toggleFocusCard = (add) => {
   $heartLike.forEach((heart) => {
     heart.setAttribute("tabindex", add ? "0" : "-1");
   });
-  $article[0].focus();
+  add && $article[currentItemPosition].focus();
 };
 
 const playcarousel = (btnPlay) => {
