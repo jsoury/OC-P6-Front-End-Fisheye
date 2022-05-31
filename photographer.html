@@ -30,24 +30,50 @@
 
     <main id="main-photographer" aria-hidden="false">
       <div class="photograph-header"></div>
-      <div class="trie">
-        trier par
-        <div class="dropdown">
-          <button class="dropbtn" onclick="orderBy('likes')" tabindex="2">
-            Popularité
-            <i
-              class="fa fa-caret-down"
-              aria-hidden="false"
-              title="open dropdown"
-            ></i>
+      <div class="wrapper_select">
+        <div class="select_title" id="trie_label">Trier par :</div>
+        <div class="select_list">
+          <button
+            class="select_button"
+            id="select_button"
+            aria-haspopup="listbox"
+            aria-labelledby="trie_label"
+            aria-expanded="false"
+          >
+            <div class="pseudo_value">Popularité</div>
           </button>
-          <div class="dropdown-content">
-            <a onclick="orderBy('date')">Date</a>
-            <a onclick="orderBy('title')">Titre</a>
-          </div>
+          <ul class="listbox" role="listbox" id="trie_list">
+            <li
+              class="option"
+              id="option-0"
+              role="option"
+              tabindex="-1"
+              onclick="orderBy('likes')"
+            >
+              Popularité
+            </li>
+            <li
+              class="option"
+              id="option-1"
+              role="option"
+              tabindex="-1"
+              onclick="orderBy('date')"
+            >
+              Date
+            </li>
+            <li
+              class="option"
+              role="option"
+              id="option-2"
+              tabindex="-1"
+              onclick="orderBy('title')"
+            >
+              Title
+            </li>
+          </ul>
         </div>
       </div>
-      <section class="achievements_section"></section>
+      <section class="achievements_section" aria-hidden="false"></section>
     </main>
 
     <!--Modal form contact-->
@@ -118,11 +144,12 @@
 
     <!--carousel-->
     <div class="carousel-photographer" aria-hidden="true">
-      <i
+      <span
         class="fa-solid fa-xmark"
         onclick="closecarousel()"
-        aria-label="close carousel"
-      ></i>
+        aria-hidden="true"
+        title="close carousel"
+      ></span>
       <ul
         class="carousel"
         aria-label="Our selection of Recipes"
@@ -140,6 +167,7 @@
     <script src="scripts/utils/contactForm.js"></script>
     <script src="scripts/utils/sorte.js"></script>
     <script src="scripts/utils/createMedia.js"></script>
+    <script src="scripts/utils/dropdown.js"></script>
 
     <!-- Api -->
     <script src="scripts/api/api.js"></script>

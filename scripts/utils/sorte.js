@@ -24,7 +24,7 @@ const orderBy = (orderBy) => {
     return achievementsArray[e.index];
   });
   makePortfolioCardsBySort(result);
-  toggleDropdown(orderBy);
+  //toggleDropdown(orderBy);
 };
 
 const toggleDropdown = (orderBy) => {

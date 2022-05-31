@@ -4,6 +4,10 @@
 @import url("carousel.css");
 @import url("dropdown.css");
 
+*:focus {
+  outline: 4px dashed darkorange;
+}
+
 body {
   font-family: "DM Sans", sans-serif;
   margin: 0;

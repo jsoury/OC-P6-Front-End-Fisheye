@@ -12,8 +12,9 @@ function displayModal() {
   $mainPhotographer.className = "no-scroll";
 
   $modal.setAttribute("aria-hidden", "false");
-
   $modal.style.display = "block";
+
+  form.elements.first.focus();
 }
 
 function closeModal() {
@@ -142,10 +143,16 @@ document.addEventListener("DOMContentLoaded", () => {
     );
   });
   document.addEventListener("keydown", (event) => {
-    // if ($modal.attributes["aria-hidden"] === "false" && event.key === "Enter") {
-    //   validateSubmit();
-    // }
-    if (event.key === "Escape") {
+    if (
+      $modal.attributes["aria-hidden"].value === "false" &&
+      event.key === "Enter"
+    ) {
+      validateSubmit();
+    }
+    if (
+      event.key === "Escape" &&
+      $modal.attributes["aria-hidden"].value === "false"
+    ) {
       closeModal();
     }
   });

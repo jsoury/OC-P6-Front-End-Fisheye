@@ -17,6 +17,7 @@ function portfolioFactory(data) {
 
     const $link = document.createElement("a");
     $link.setAttribute("onclick", `displaycarousel(${index})`);
+    $link.setAttribute("tabindex", "0");
     $link.appendChild(createMedia(data));
 
     const $achievementText = document.createElement("p");
@@ -32,7 +33,8 @@ function portfolioFactory(data) {
               : "fa-regular fa-heart"
           }" 
           aria-label="likes"
-          aria-hidden ="true"
+          aria-hidden ="false"
+          tabindex="0"
           title="add like" 
           onclick ="toggleLike(${id})"
         ></i>

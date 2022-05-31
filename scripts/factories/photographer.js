@@ -59,7 +59,7 @@ function photographerFactory(data) {
           <span class="total-likes">
             ${totalLikes.toString()}
           </span> 
-          <i class="fa-solid fa-heart" aria-label="count likes"></i> 
+          <i class="fa-solid fa-heart" aria-hidden="true"></i> 
         </span>
         ${price}€ / jour
       </p>

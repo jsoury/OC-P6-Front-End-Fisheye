@@ -1,10 +1,21 @@
+// const makeCloseButton = () => {
+//   const $wrapper = document.querySelector(".carousel-photographer");
+//   const $btn = `<i
+// class="fa-solid fa-xmark"
+// onclick="closecarousel()"
+// aria-label="close carousel"
+// ></i>`;
+//   $wrapper.innerHTML = $btn;
+// };
+// makeCloseButton();
+
 const $prevBtn = document.querySelectorAll(".prev-image");
 const $nextBtn = document.querySelectorAll(".next-image");
 const $carouselItems = document.querySelectorAll(".carousel-item");
 const $carouselPauseBtn = document.querySelector(".carousel-pause-btn");
 const $closeBtn = document.querySelector(".carousel-photographer");
 const $btnPlay = document.querySelector(".btn-play");
-const $section = document.querySelector(".achievements_section");
+const $sectionWrapper = document.querySelector(".achievements_section");
 
 let currentItemPosition = 0;
 let carouselInterval;
@@ -12,8 +23,12 @@ let carouselInterval;
 // Funcs
 
 function displaycarousel(index) {
-  const carousel = document.querySelector(".carousel-photographer");
+  toggleFocusCard();
+  $sectionWrapper.setAttribute("aria-hidden", true);
+  const $carousel = document.querySelector(".carousel-photographer");
   currentItemPosition = index;
+  console.log($carouselItems[currentItemPosition]);
+  $carouselItems[currentItemPosition].focus();
   let lastItem = null;
   if (currentItemPosition === 0) {
     lastItem = `.item-${$carouselItems.length - 1}`;
@@ -22,17 +37,27 @@ function displaycarousel(index) {
   }
   const currentItem = `.item-${currentItemPosition}`;
   setNodeAttributes(lastItem, currentItem);
-  carousel.style.display = "block";
+  $carousel.style.display = "block";
+  $carousel.setAttribute("aria-hidden", false);
+  clearInterval(carouselInterval);
   carouselInterval = setInterval(() => goToNextSlide(), 5000);
+  console.log(carouselInterval);
 }
 
 const closecarousel = () => {
-  document.querySelector(".carousel-photographer").style.display = "none";
+  toggleFocusCard((add = true));
+  addListenerEventKey();
+  const $carousel = document.querySelector(".carousel-photographer");
+  $carousel.style.display = "none";
+  $carousel.setAttribute("aria-hidden", true);
+  $sectionWrapper.setAttribute("aria-hidden", false);
   currentItemPosition = 0;
+
   document.querySelectorAll(".carousel-item").forEach((item) => {
     item.style.display = "none";
   });
   clearInterval(carouselInterval);
+  console.log(carouselInterval);
 };
 const goToNextSlide = () => {
   if (currentItemPosition + 1 >= $carouselItems.length) {
@@ -95,6 +120,20 @@ const createEventListenerModal = () => {
     });
 };
 
+const toggleFocusCard = (add) => {
+  const $article = document.querySelectorAll(".achievements_section article a");
+  const $heartLike = document.querySelectorAll(
+    ".achievements_section article i"
+  );
+  $article.forEach((card) => {
+    card.setAttribute("tabindex", add ? "0" : "-1");
+  });
+  $heartLike.forEach((heart) => {
+    heart.setAttribute("tabindex", add ? "0" : "-1");
+  });
+  $article[0].focus();
+};
+
 const playcarousel = (btnPlay) => {
   const icon = btnPlay.querySelector(".fa-solid");
   const classIcon = Array.prototype.slice.call(icon.classList);
@@ -102,13 +141,16 @@ const playcarousel = (btnPlay) => {
     btnPlay.innerHTML =
       '<i class="fa-solid fa-play" aria-hidden="true" title="Stop carousel"></i>';
     clearInterval(carouselInterval);
+    console.log(carouselInterval);
   } else {
     btnPlay.innerHTML =
       '<i class="fa-solid fa-pause" aria-hidden="true" title="Play carousel"></i>';
     goToNextSlide();
+    clearInterval(carouselInterval);
     carouselInterval = setInterval(() => goToNextSlide(), 5000);
   }
 };
+
 $prevBtn.forEach((element) => {
   element.addEventListener("click", goToPreviousSlide);
 }),

@@ -53,6 +53,7 @@ function reMakePortfolioCard(media, idCard) {
   const factoryPortfolio = portfolioFactory(media);
   const portfolioCard = factoryPortfolio.createPortfolioCard(index);
   $wrapper.parentNode.replaceChild(portfolioCard, $wrapper);
+  addListenerEventKey();
 }
 
 function makecarousel(media) {
@@ -157,6 +158,7 @@ function makePortfolioCardsBySort(data) {
   makePortfolioCards(newData);
   makecarousel(newData);
   createEventListenerModal();
+  addListenerEventKey();
 }
 
 async function init() {
@@ -177,8 +179,33 @@ async function init() {
   makeSticky(mergeDataPhotograper);
 }
 
-document.addEventListener("readystatechange", (event) => {
+function addListenerEventKey() {
+  const $article = document.querySelectorAll(".achievements_section article a");
+  const $heartLike = document.querySelectorAll(
+    ".achievements_section article i"
+  );
+  const $carousel = document.querySelector(".carousel-photographer");
+  const carouselIsClose = $carousel.getAttribute("aria-hidden");
+  $article.forEach((card) => {
+    card.addEventListener(
+      "keydown",
+      (event) => {
+        console.log("keydown");
+        if (event.key === "Enter" && carouselIsClose) event.target.click();
+      },
+      { once: true }
+    );
+  });
+  $heartLike.forEach((heart) => {
+    heart.addEventListener("keydown", (event) => {
+      if (event.key === "Enter") event.target.click();
+    });
+  });
+}
+
+document.addEventListener("readystatechange", async (event) => {
   if (event.target.readyState === "interactive") {
-    init();
+    await init();
+    addListenerEventKey();
   }
 });
