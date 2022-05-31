@@ -53,25 +53,29 @@ function reMakePortfolioCard(media, idCard) {
   const factoryPortfolio = portfolioFactory(media);
   const portfolioCard = factoryPortfolio.createPortfolioCard(index);
   $wrapper.parentNode.replaceChild(portfolioCard, $wrapper);
+  addListenerEventKey();
 }
 
-function makeCarrousel(media) {
-  const $wrapper = document.querySelector("#carrousel-list");
+function makecarousel(media) {
+  const $wrapper = document.querySelector("#carousel-list");
   media.forEach((element, index) => {
-    const factoryCarrousel = carrouselFactory(element);
-    const $item = factoryCarrousel.createItemCarrousel(index);
+    const factorycarousel = carouselFactory(element);
+    const $item = factorycarousel.createItemcarousel(index);
     $wrapper.appendChild($item);
   });
 }
 
-function initCarrouselManager() {
+function initcarouselManager() {
   let script = document.createElement("script");
-  script.src = "scripts/utils/carrousel.js";
+  script.src = "scripts/utils/carousel.js";
   document.head.appendChild(script);
 }
 
 function setNameContact(photograper) {
+  const modal = document.getElementById("contact_modal");
+  modal.setAttribute("aria-describedby", `contactez ${photograper.name}`);
   const modalTitle = document.querySelector(".modal header h2");
+  modalTitle.setAttribute("id", `contactez ${photograper.name}`);
   modalTitle.innerHTML = `Contactez-moi<br/> ${photograper.name}`;
 }
 
@@ -134,8 +138,8 @@ function makePortfolioCardsBySort(data) {
   //remove child
   const achievementsSection = document.querySelector(".achievements_section");
   achievementsSection.textContent = "";
-  const carrouselList = document.querySelector("#carrousel-list");
-  carrouselList.textContent = "";
+  const carouselList = document.querySelector("#carousel-list");
+  carouselList.textContent = "";
 
   data.forEach((achievement, index) => {
     achievement.dataset.index = index;
@@ -152,8 +156,9 @@ function makePortfolioCardsBySort(data) {
     });
   });
   makePortfolioCards(newData);
-  makeCarrousel(newData);
+  makecarousel(newData);
   createEventListenerModal();
+  addListenerEventKey();
 }
 
 async function init() {
@@ -168,14 +173,38 @@ async function init() {
 
   makePortfolioHeader(mergeDataPhotograper);
   makePortfolioCards(mergeDataMedia);
-  makeCarrousel(mergeDataMedia);
-  initCarrouselManager();
+  makecarousel(mergeDataMedia);
+  initcarouselManager();
   setNameContact(dataPhotographer);
   makeSticky(mergeDataPhotograper);
 }
 
-document.addEventListener("readystatechange", (event) => {
+function addListenerEventKey() {
+  const $article = document.querySelectorAll(".achievements_section article a");
+  const $heartLike = document.querySelectorAll(
+    ".achievements_section article .fa-heart"
+  );
+  const $carousel = document.querySelector(".carousel-photographer");
+  const carouselIsClose = $carousel.getAttribute("aria-hidden");
+  $article.forEach((card) => {
+    card.addEventListener(
+      "keydown",
+      (event) => {
+        if (event.key === "Enter" && carouselIsClose) event.target.click();
+      },
+      { once: true }
+    );
+  });
+  $heartLike.forEach((heart) => {
+    heart.addEventListener("keydown", (event) => {
+      if (event.key === "Enter") event.target.click();
+    });
+  });
+}
+
+document.addEventListener("readystatechange", async (event) => {
   if (event.target.readyState === "interactive") {
-    init();
+    await init();
+    addListenerEventKey();
   }
 });

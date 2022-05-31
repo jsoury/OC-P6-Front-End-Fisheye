@@ -1,37 +1,53 @@
 const $prevBtn = document.querySelectorAll(".prev-image");
 const $nextBtn = document.querySelectorAll(".next-image");
-const $carrouselItems = document.querySelectorAll(".carrousel-item");
-const $carrouselPauseBtn = document.querySelector(".carrousel-pause-btn");
-const $closeBtn = document.querySelector(".carrousel-photographer");
+const $carouselItems = document.querySelectorAll(".carousel-item");
+const $carouselPauseBtn = document.querySelector(".carousel-pause-btn");
+const $closeBtn = document.querySelector(".carousel-photographer");
+const $btnPlay = document.querySelector(".btn-play");
+const $sectionWrapper = document.querySelector(".achievements_section");
 
 let currentItemPosition = 0;
-let carrouselInterval;
+let carouselInterval;
 
-// Funcs
-
-function displayCarrousel(index) {
-  const carrousel = document.querySelector(".carrousel-photographer");
+function displaycarousel(index) {
+  toggleFocusCard();
+  $sectionWrapper.setAttribute("aria-hidden", true);
+  $btnPlay.focus();
+  const $carousel = document.querySelector(".carousel-photographer");
   currentItemPosition = index;
   let lastItem = null;
+
   if (currentItemPosition === 0) {
-    lastItem = `.item-${$carrouselItems.length - 1}`;
+    lastItem = `.item-${$carouselItems.length - 1}`;
   } else {
     lastItem = `.item-${currentItemPosition - 1}`;
   }
   const currentItem = `.item-${currentItemPosition}`;
   setNodeAttributes(lastItem, currentItem);
-  carrousel.style.display = "block";
+  $carousel.style.display = "block";
+  $carousel.setAttribute("aria-hidden", false);
+
+  clearInterval(carouselInterval);
+  carouselInterval = setInterval(() => goToNextSlide(), 5000);
 }
 
-const closeCarrousel = () => {
-  document.querySelector(".carrousel-photographer").style.display = "none";
+const closecarousel = () => {
+  toggleFocusCard((add = true));
+  addListenerEventKey();
+  const $carousel = document.querySelector(".carousel-photographer");
+  $carousel.style.display = "none";
+  $carousel.setAttribute("aria-hidden", true);
+  $sectionWrapper.setAttribute("aria-hidden", false);
   currentItemPosition = 0;
-  document.querySelectorAll(".carrousel-item").forEach((item) => {
+
+  document.querySelectorAll(".carousel-item").forEach((item) => {
     item.style.display = "none";
   });
+  clearInterval(carouselInterval);
 };
+
 const goToNextSlide = () => {
-  if (currentItemPosition + 1 >= $carrouselItems.length) {
+  if (currentItemPosition + 1 >= $carouselItems.length) {
     const lastItem = `.item-${currentItemPosition}`;
 
     currentItemPosition = 0;
@@ -42,7 +58,6 @@ const goToNextSlide = () => {
     currentItemPosition += 1;
     const lastItem = `.item-${currentItemPosition - 1}`;
     const currentItem = `.item-${currentItemPosition}`;
-
     setNodeAttributes(lastItem, currentItem);
   }
 };
@@ -57,9 +72,8 @@ const goToPreviousSlide = () => {
   } else {
     const lastItem = `.item-${currentItemPosition}`;
 
-    currentItemPosition = $carrouselItems.length - 1;
+    currentItemPosition = $carouselItems.length - 1;
     const currentItem = `.item-${currentItemPosition}`;
-
     setNodeAttributes(lastItem, currentItem);
   }
 };
@@ -91,6 +105,36 @@ const createEventListenerModal = () => {
     });
 };
 
+const toggleFocusCard = (add) => {
+  const $article = document.querySelectorAll(".achievements_section article a");
+  const $heartLike = document.querySelectorAll(
+    ".achievements_section article .fa-heart"
+  );
+  $article.forEach((card) => {
+    card.setAttribute("tabindex", add ? "0" : "-1");
+  });
+  $heartLike.forEach((heart) => {
+    heart.setAttribute("tabindex", add ? "0" : "-1");
+  });
+  add && $article[currentItemPosition].focus();
+};
+
+const playcarousel = (btnPlay) => {
+  const icon = btnPlay.querySelector(".fa-solid");
+  const classIcon = Array.prototype.slice.call(icon.classList);
+  if (classIcon.includes("fa-pause")) {
+    btnPlay.innerHTML =
+      '<i class="fa-solid fa-play" aria-hidden="true" title="Stop carousel"></i>';
+    clearInterval(carouselInterval);
+  } else {
+    btnPlay.innerHTML =
+      '<i class="fa-solid fa-pause" aria-hidden="true" title="Play carousel"></i>';
+    goToNextSlide();
+    clearInterval(carouselInterval);
+    carouselInterval = setInterval(() => goToNextSlide(), 5000);
+  }
+};
+
 $prevBtn.forEach((element) => {
   element.addEventListener("click", goToPreviousSlide);
 }),
@@ -102,15 +146,7 @@ $prevBtn.forEach((element) => {
       goToNextSlide();
     } else if (event.key === "ArrowLeft") {
       goToPreviousSlide();
+    } else if (event.key === "Escape") {
+      closecarousel();
     }
   });
-
-//document.addEventListener("DOMContentLoaded", createEventListenerModal);
-
-// $carrouselPauseBtn.on("click", function () {
-//   clearInterval(carrouselInterval);
-// });
-
-// $(document).ready(function () {
-//   carrouselInterval = setInterval(() => goToNextSlide(), 5000);
-// });

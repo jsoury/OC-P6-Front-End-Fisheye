@@ -2,15 +2,13 @@ function photographerFactory(data) {
   const { id, portrait, name, city, country, tagline, price, totalLikes } =
     data;
 
-  const picture = `assets/photographers/${portrait}`;
-
   function createPhotographerCard() {
     const $article = document.createElement("article");
     $article.setAttribute("id", id);
     const photographerCard = `
       <a href=${window.location.href}photographer.html?id=${id}>
           <img 
-              alt="${name}" 
+              alt="" 
               src="/assets/photographers/${portrait}"
           />
           <h2>${name}</h2>
@@ -38,11 +36,11 @@ function photographerFactory(data) {
           ${tagline}
         </p>
       </div>
-        <button class="contact_button" onclick="displayModal()">
+        <button class= "contact_button" onclick= "displayModal()" id= "btn_open_modal">
           Contactez-moi
         </button>
         <img src="/assets/photographers/${portrait}" 
-          alt="${name}"
+          alt=""
         />
       `;
 
@@ -59,7 +57,7 @@ function photographerFactory(data) {
           <span class="total-likes">
             ${totalLikes.toString()}
           </span> 
-          <i class="fa-solid fa-heart" aria-label="count likes"></i> 
+          <i class="fa-solid fa-heart" aria-hidden="true"></i> 
         </span>
         ${price}€ / jour
       </p>

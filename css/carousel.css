@@ -1,4 +1,4 @@
-.carrousel-photographer {
+.carousel-photographer {
   position: relative;
   display: none;
   position: fixed;
@@ -21,7 +21,7 @@
   z-index: 2;
 }
 
-.carrousel-close .sr-only {
+.carousel-close .sr-only {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -33,13 +33,13 @@
   border: 0;
 }
 
-.carrousel {
+.carousel {
   position: relative;
   padding: 0;
   margin: 0;
 }
 
-.carrousel-item {
+.carousel-item {
   width: 100%;
   margin-top: 20px;
   margin-bottom: 20px;
@@ -71,24 +71,49 @@
   right: 20px;
 }
 
-.carrousel-photographer p {
+.carousel-photographer p {
   color: #901c1c;
   font-size: 24px;
   font-weight: 700;
   margin: 10px 0 0 0;
 }
-.carrousel-content {
-  height: 90vh;
+.carousel-content {
+  height: 85vh;
   width: 80vw;
   margin: auto;
 }
 
-.carrousel img {
+.carousel img {
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+}
+
+.carousel video {
   height: 100%;
   width: 100%;
 }
+.text-content {
+  display: flex;
+}
+.carousel-content .btn-play {
+  display: block;
+  position: absolute;
+  left: 50%;
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+  padding: 11px;
+  width: 70px;
+  height: 70px;
+  border: none;
+  background-color: #901c1c;
+  border-radius: 100%;
+  cursor: pointer;
+  transition: all 1000ms;
+  margin: 10px auto;
+}
 
-.carrousel video {
-  height: 100%;
-  width: 100%;
+.btn-play i {
+  font-size: 25px;
 }

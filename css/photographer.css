@@ -95,6 +95,10 @@
   margin: 0 0 15px 0;
 }
 
+.no-scroll {
+  overflow: hidden;
+}
+
 form {
   position: relative;
   display: flex;
@@ -175,10 +179,4 @@ form #request {
 
 .disabled {
   opacity: 0;
-}
-
-.trie {
-  display: flex;
-  align-items: center;
-  margin: 50px 100px;
 }

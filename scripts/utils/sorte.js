@@ -24,12 +24,13 @@ const orderBy = (orderBy) => {
     return achievementsArray[e.index];
   });
   makePortfolioCardsBySort(result);
-  toggleDropdown(orderBy);
+  //toggleDropdown(orderBy);
 };
 
 const toggleDropdown = (orderBy) => {
   const $wrapper = document.querySelector(".dropdown");
-  const icon = '<i class="fa fa-caret-down"></i>';
+  const icon =
+    '<i class="fa fa-caret-down" aria-hidden="false" title="open dropdown"></i>';
   let orderBtn;
 
   if (orderBy === "likes") {
@@ -79,5 +80,3 @@ const createDropDown = (orderBtn) => {
 `;
   return dropdown;
 };
-
-console.log("ta mere" + " " + "la pute");

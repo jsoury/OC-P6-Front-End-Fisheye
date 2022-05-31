@@ -1,16 +1,30 @@
 // DOM Elements
+const $mainPhotographer = document.getElementById("main-photographer");
 const form = document.forms.contact;
+const $modal = document.getElementById("contact_modal");
+const $modalCloseBtn = document.querySelector(".close-modal");
+const $modalOpenBtn = document.querySelector("#btn_open_modal");
 const allInput = Array.prototype.slice.call(document.querySelectorAll("input"));
 allInput.splice(3, 1, document.querySelector("#request"));
 
 function displayModal() {
-  const modal = document.getElementById("contact_modal");
-  modal.style.display = "block";
+  $mainPhotographer.setAttribute("aria-hidden", "true");
+  $mainPhotographer.className = "no-scroll";
+
+  $modal.setAttribute("aria-hidden", "false");
+  $modal.style.display = "block";
+
+  form.elements.first.focus();
 }
 
 function closeModal() {
-  const modal = document.getElementById("contact_modal");
-  modal.style.display = "none";
+  const $modalOpenBtn = document.querySelector("#btn_open_modal");
+  $mainPhotographer.setAttribute("aria-hidden", "false");
+  $mainPhotographer.classList.remove("no-scroll");
+
+  $modal.setAttribute("aria-hidden", "true");
+  $modal.style.display = "none";
+  $modalOpenBtn.focus();
   hideThanks();
   form.reset();
 }
@@ -56,6 +70,7 @@ const validateSubmit = (event) => {
 };
 
 const toggleErrorMessages = (element, etat) => {
+  element.setAttribute("aria-invalid", etat);
   element.parentNode.dataset.visible = etat;
 };
 
@@ -126,6 +141,20 @@ document.addEventListener("DOMContentLoaded", () => {
       },
       false
     );
+  });
+  document.addEventListener("keydown", (event) => {
+    if (
+      $modal.attributes["aria-hidden"].value === "false" &&
+      event.key === "Enter"
+    ) {
+      validateSubmit(event);
+    }
+    if (
+      event.key === "Escape" &&
+      $modal.attributes["aria-hidden"].value === "false"
+    ) {
+      closeModal();
+    }
   });
 });
 
