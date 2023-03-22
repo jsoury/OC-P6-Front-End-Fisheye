@@ -1,5 +1,4 @@
 function api(url) {
-  //const url = url;
   async function get(type) {
     return fetch(url)
       .then((res) => res.json())

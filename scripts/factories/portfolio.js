@@ -44,7 +44,6 @@ function portfolioFactory(data) {
     `;
     $article.appendChild($link);
     $article.appendChild($achievementText);
-    //$article += $article.innerHTML = achievementText;
     return $article;
   }
 
