@@ -39,7 +39,7 @@ function photographerFactory(data) {
         <button class= "contact_button" onclick= "displayModal()" id= "btn_open_modal">
           Contactez-moi
         </button>
-        <img src="/assets/photographers/${portrait}" 
+        <img src="./assets/photographers/${portrait}" 
           alt=""
         />
       `;
