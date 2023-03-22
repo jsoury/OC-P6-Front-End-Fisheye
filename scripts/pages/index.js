@@ -11,7 +11,8 @@ async function createSectionPhotographers() {
 
 // Récupère les datas des photographes
 async function getDataPhotographers() {
-  const data = api(`/data/photographers.json`);
+  console.log(location.pathname);
+  const data = api(`${location.pathname}data/photographers.json`);
   const photographers = await data.getPhotographers();
   return photographers;
 }
