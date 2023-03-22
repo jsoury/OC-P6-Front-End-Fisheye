@@ -9,7 +9,7 @@ function photographerFactory(data) {
       <a href=${window.location.href}photographer.html?id=${id}>
           <img 
               alt="" 
-              src="/assets/photographers/${portrait}"
+              src="./assets/photographers/${portrait}"
           />
           <h2>${name}</h2>
       </a>
