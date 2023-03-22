@@ -1,6 +1,10 @@
 function api(url) {
   async function get(type) {
-    return fetch(url)
+    return fetch(url.toString(), {
+      headers: {
+        Accept: "application/json",
+      },
+    })
       .then((res) => res.json())
       .then((res) => res[type])
       .catch((err) => console.log("an error occurs", err));
