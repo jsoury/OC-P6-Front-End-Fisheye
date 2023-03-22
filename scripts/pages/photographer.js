@@ -1,11 +1,11 @@
 async function getDataPhotographer() {
-  const data = api(`${location.pathname}data/photographers.json`);
+  const data = api(`./data/photographers.json`);
   const photographer = await data.getPhotograper(getParamId());
   return photographer;
 }
 
 async function getMedia() {
-  const data = api(`${location.pathname}data/photographers.json`);
+  const data = api(`./data/photographers.json`);
   const media = await data.getMedia(getParamId());
   return media;
 }
