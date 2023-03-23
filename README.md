@@ -1,47 +1,81 @@
-# Base de code du projet P6 - Parcours Front-end
+# OC-P6-Créez un site accessible pour une plateforme de photographes (FishEye)
 
-## Démarrer le projet
+[![](https://img.shields.io/w3c-validation/default?targetUrl=https%3A%2F%2Fjsoury.github.io%2FOC-P6-Front-End-Fisheye)](https://validator.w3.org/nu/?showsource=yes&doc=https%3A%2F%2Fjsoury.github.io%2FOC-P6-Front-End-Fisheye)
 
-Rien à installer ici, il suffit d'ouvrir le fichier `index.html`.
+Coder une application accessible qui contient des données et plusieurs fonctionnalités assez conséquentes
 
-## Spécifications fonctionnelles
+- voir le [projet](https://jsoury.github.io/OC-P6-Front-End-Fisheye).
 
-Nous devons créer les pages suivantes pour le prototype :
+## 1. Contexte
 
-- Page d'accueil :
+Depuis quelques semaines, vous êtes développeur junior chez Techasite, une société de conseil spécialisée dans le développement de sites web et d'applications mobiles.
 
-  - Liste de tous les photographes avec leur nom, leur slogan, leur localisation, leur prix/heure et une image miniature de leur choix.
-  - Lorsque l'utilisateur clique sur la vignette d'un photographe, il est amené à sa page.
+Avec votre cheffe de projet Amanda et le Designer UI, vous venez de faire une réunion de lancement du projet avec un nouveau client, FishEye.
 
-- Page des photographes (le contenu de la page sera généré de manière dynamique en fonction du photographe) :
-  - Affiche une galerie des travaux du photographe
-  - Les photographes peuvent montrer à la fois des photos et des vidéos.
-    - Dans le cas des vidéos, montrer une image miniature dans la galerie.
-  - Chaque média comprend un titre et un nombre de likes.
-    - Lorsque l'utilisateur clique sur l'icône "Like", le nombre de likes affiché est incrémenté.
-    - Le nombre de likes total d’un photographe doit correspondre à la somme des likes de chacun de ses médias.aw
-  - Les médias peuvent être triés par popularité ou par titre
-  - Lorsque l'utilisateur clique sur un média, celui-ci doit s’ouvrir dans une lightbox :
-    - Lorsque la lightbox est affichée, il y a une croix dans le coin pour fermer la fenêtre
-    - Des boutons de navigation permettent de passer d'un élément média à l'autre dans la lightbox (les utilisateurs peuvent cliquer sur ces boutons pour naviguer).
-    - Les touches fléchées du clavier permettent également de naviguer entre les médias dans la lightbox.
-  - Afficher un bouton pour contacter le photographe.
-    - Le formulaire de contact est une modale qui s'affiche par-dessus le reste.
-    - Il comprend des champs pour les noms, l'adresse électronique et le message.
-    - Plus tard, le bouton de contact enverra un message au photographe. Pour l'instant, seulement afficher le contenu des trois champs dans les logs de la console.
+FishEye est un site web qui permet aux photographes indépendants de présenter leurs meilleurs travaux
 
-## Spécifications techniques
+## 2. Objectifs
 
-**L'accessibilité est clé !**
-"Il est très important que notre site soit accessible aux utilisateurs malvoyants. Toutes nos photos doivent comporter des descriptions textuelles, et vous devez les inclure dans la page. De plus, l'utilisateur doit pouvoir utiliser les commandes du clavier pour naviguer sur le site, comme les touches fléchées de la lightbox"
+- Implémenter l'interface en fonction de la [maquette Figma](https://www.figma.com/file/Q3yNeD7WTK9QHDldg9vaRl/UI-Design-FishEye-FR)
+- Fetch les datas depuis le .JSON
+- Implémenter la navigation du site au moyen du clavier pour s’assurer qu'il est utilisable par les [lecteurs d'écran](https://developer.mozilla.org/en-US/docs/Learn/Tools_and_testing/Cross_browser_testing/Accessibility#Screenreaders)
 
-- Utilisez des éléments HTML "sémantiques" qui décrivent leur intention autant que possible, au lieu de mettre des éléments `<div>` et `<span>` partout.
-- Lorsque vous devez créer un élément personnalisé, ajoutez des attributs ARIA pour décrire ce qu'il fait.
-- Les images doivent présenter un attribut “alt”. Utilisez le titre des photos pour remplir cet attribut, et le nom du photographe dans le cas d’une photo de profil de photographe.
-- Le code devrait passer les tests [AChecker](https://achecker.ca/) sans “known issue” (afin qu'il soit conforme aux WCAG).
-- Toute la gestion des événements (par exemple, les clics et les pressions au clavier) doit être configurée (utilisez `KeyboardEvent.key` ou `KeyboardEvent.code`.)
-- Utilisez un [lecteur d'écran](https://developer.mozilla.org/en-US/docs/Learn/Tools_and_testing/Cross_browser_testing/Accessibility#screenreaders) gratuit pour vous faire une idée de ce que représente l'utilisation du site pour une personne malvoyante.
-- Le code est séparé en différents fichiers (HTML, CSS, JavaScript).
-- ESLint est utilisé (avec les paramètres par défaut) pour garantir que le code est robuste. Ceci est particulièrement facile à intégrer avec l'IDE VSCode.
-- Une version moderne (ES6 ou supérieure) de JavaScript est utilisée et les fonctionnalités obsolètes ne sont pas utilisées.
-- Le code est lisible. Il faudra s'assurer que les variables et fonctions ont un nom qui ont un sens, et commenter le code lorsque le nom n'indique pas explicitement ce qu'il se passe.
+## 3. Spécifications
+
+- HTML, CSS
+- JavaScript
+
+## 4. Démarrage
+
+[Code source](https://github.com/jsoury/OC-P6-Front-End-Fisheye)
+
+### 4.1. IDE
+
+- [Visual Studio code](https://code.visualstudio.com/)
+
+### 4.2. Prérequis
+
+- [Liver server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer)
+
+### 4.3 Utilisation
+
+- Clonez ce dépôt sur votre ordinateur:
+
+```bash
+git clone https://github.com/jsoury/OC-P6-Front-End-Fisheye.git
+```
+
+- Exécuter index.html
+
+## 5. Auteur
+
+- [![](https://img.shields.io/badge/Portfolio-Jonathan%20SOURY-orange)](https://js-portfolio-hgzextusx-jsoury.vercel.app/)
+- [![](https://img.shields.io/badge/linkedin-%230077B5.svg?style=for-the-badge&logo=linkedin)](https://www.linkedin.com/in/jonathan-soury/)
+
+<img src="https://github-readme-stats.vercel.app/api?username=jsoury&show_icons=true"/>
+
+<img src="https://github-readme-stats.vercel.app/api/top-langs?username=jsoury&layout=compact"/>
+
+## 6. License
+
+License MIT
+
+Copyright (c) [2022] [Jonathan SOURY]
+
+Permission est accordée, sans frais, à toute personne obtenant une copie
+de ce logiciel et des fichiers de documentation associés (le "Logiciel"), pour traiter
+dans le Logiciel sans restriction, y compris, sans s'y limiter, les droits
+utiliser, copier, modifier, fusionner, publier, distribuer, sous-licencier et/ou vendre
+copies du Logiciel, et de permettre aux personnes à qui le Logiciel est
+fourni pour ce faire, sous réserve des conditions suivantes :
+
+L'avis de droit d'auteur ci-dessus et cet avis d'autorisation doivent être inclus dans tous
+des copies ou des parties substantielles du Logiciel.
+
+LE LOGICIEL EST FOURNI "TEL QUEL", SANS GARANTIE D'AUCUNE SORTE, EXPRESSE OU
+IMPLICITES, Y COMPRIS, MAIS SANS S'Y LIMITER, LES GARANTIES DE QUALITÉ MARCHANDE,
+ADÉQUATION À UN USAGE PARTICULIER ET ABSENCE DE CONTREFAÇON. EN AUCUN CAS LE
+LES AUTEURS OU LES DÉTENTEURS DU COPYRIGHT SERONT RESPONSABLES DE TOUTE RÉCLAMATION, DOMMAGE OU AUTRE
+RESPONSABILITÉ, QUE CE SOIT DANS UNE ACTION CONTRACTUELLE, DÉLICTUELLE OU AUTRE, RÉSULTANT DE,
+EN DEHORS OU EN RELATION AVEC LE LOGICIEL OU L'UTILISATION OU D'AUTRES TRANSACTIONS DANS LE
+LOGICIEL.
